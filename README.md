@@ -9,7 +9,7 @@ logger = level.NewFilter(logger, level.AllowAll())
 logger = log.With(logger, "time", log.DefaultTimestampUTC, "caller", log.DefaultCaller)
 ctx, _ := context.WithCancel(context.Background())
 tdexService := tdex.NewAPIService(
-    "https://tl.tdex.com",
+    "URL",
     "api-key",
     "api-secret",
     logger,
@@ -482,22 +482,3 @@ params:
 	page 可选	int32	当前页码
 ```
 
-#### 现货买卖统计
-
-```go
-td, err := t.SpotStat(tdex.SpotStatRequest{beginTime: string, endTime: string, symbol: string})
-if err != nil {
-    panic(err)
-}
-fmt.Printf("%+v", td)
-```
-```
-params:
-
-	symbol	string	产品
-
-	beginTime	int64	开始时间戳。秒
-
-	endTime	int64	结束时间戳。秒
-	page 可选	int32	当前页码
-```
