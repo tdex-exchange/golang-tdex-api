@@ -4,32 +4,35 @@ import "fmt"
 
 type Tdex interface {
 	ProductCoins() (*ProductCoins, error)
+
 	UserInfo() (*UserInfo, error)
-	Balances(bqs BalancesRequest) (*Balances, error)
-	Balance(bq BalanceRequest) (*Balance, error)
-	Withdraw(wq WithdrawRequest) (*Withdraw, error)
-	Switch(sq SwitchRequest) (*Switch, error)
+
+	WalletBalances(bqs WalletBalancesRequest) (*WalletBalances, error)
+	WalletBalance(bq WalletBalanceRequest) (*WalletBalance, error)
+	WalletWithdraw(wq WalletWithdrawRequest) (*WalletWithdraw, error)
+	WalletSwitch(sq WalletSwitchRequest) (*WalletSwitch, error)
+
 	FuturesOpen(fr FuturesOpenRequest) (*FuturesOpen, error)
 	FuturesClose(fcr []FuturesCloseRequest) (*FuturesClose, error)
 	FuturesCloseAll(fcar []FuturesCloseAllRequest) (*FuturesCloseAll, error)
 	FuturesCancel(fcr []FuturesCancelRequest) (*FuturesCancel, error)
-	Setsl(sr SetslRequest) (*Setsl, error)
-	Settp(sr SettpRequest) (*Settp, error)
-	Merge(mr MergeRequest) (*Merge, error)
-	Split(sr SplitRequest) (*Split, error)
-	Setup(sr SetupRequest) (*Setup, error)
-	SchemeSet(ssr SchemeSetRequest) (*SchemeSet, error)
-	SchemeGet(sgr SchemeGetRequest) (*SchemeGet, error)
-	GetOrders() (*GetOrders, error)
-	GetPosition() (*GetPosition, error)
-	GetHistory(ghr GetHistoryRequest) (*GetHistory, error)
-	GetContract(gcr GetContractRequest) (*GetContract, error)
+	FuturesSetsl(sr FuturesSetslRequest) (*FuturesSetsl, error)
+	FuturesSettp(sr FuturesSettpRequest) (*FuturesSettp, error)
+	FuturesMerge(mr FuturesMergeRequest) (*FuturesMerge, error)
+	FuturesSplit(sr FuturesSplitRequest) (*FuturesSplit, error)
+	FuturesSetup(sr FuturesSetupRequest) (*FuturesSetup, error)
+	FuturesSchemeSet(ssr FuturesSchemeSetRequest) (*FuturesSchemeSet, error)
+	FuturesSchemeGet(sgr FuturesSchemeGetRequest) (*FuturesSchemeGet, error)
+	FuturesOrders() (*FuturesOrders, error)
+	FuturesPosition() (*FuturesPosition, error)
+	FuturesHistory(ghr FuturesHistoryRequest) (*FuturesHistory, error)
+	FuturesContract(gcr FuturesContractRequest) (*FuturesContract, error)
+
 	SpotBuy(sbr SpotBuyRequest) (*SpotBuy, error)
 	SpotSell(ssr SpotSellRequest) (*SpotSell, error)
 	SpotCancel(scr SpotCancelRequest) (*SpotCancel, error)
 	SpotOrders() (*SpotOrders, error)
 	SpotHistory(shr SpotHistoryRequest) (*SpotHistory, error)
-	SpotStat(ssr SpotStatRequest) (*SpotStat, error)
 }
 type tdex struct {
 	Service Service
@@ -109,15 +112,15 @@ func (t *tdex) UserInfo() (*UserInfo, error) {
 	return t.Service.UserInfo()
 }
 
-type Balances struct {
+type WalletBalances struct {
 	Status uint32
-	Data   BalancesData
+	Data   WalletBalancesData
 	Errmsg string
 }
-type BalancesData struct {
-	List []*BalancesList
+type WalletBalancesData struct {
+	List []*WalletBalancesList
 }
-type BalancesList struct {
+type WalletBalancesList struct {
 	Type      uint32
 	Currency  uint32
 	Quantity  float64
@@ -129,16 +132,16 @@ type BalancesList struct {
 	Status    uint32
 }
 
-func (t *tdex) Balances(bq BalancesRequest) (*Balances, error) {
-	return t.Service.Balances(bq)
+func (t *tdex) WalletBalances(bq WalletBalancesRequest) (*WalletBalances, error) {
+	return t.Service.WalletBalances(bq)
 }
 
-type Balance struct {
+type WalletBalance struct {
 	Status uint32
-	Data   BalanceData
+	Data   WalletBalanceData
 	Errmsg string
 }
-type BalanceData struct {
+type WalletBalanceData struct {
 	Type      uint32
 	Currency  uint32
 	Quantity  float64
@@ -150,11 +153,11 @@ type BalanceData struct {
 	Status    uint32
 }
 
-func (t *tdex) Balance(bq BalanceRequest) (*Balance, error) {
-	return t.Service.Balance(bq)
+func (t *tdex) WalletBalance(bq WalletBalanceRequest) (*WalletBalance, error) {
+	return t.Service.WalletBalance(bq)
 }
 
-type Withdraw struct {
+type WalletWithdraw struct {
 	Status uint32
 	Data   WithdrawData
 	Errmsg string
@@ -168,11 +171,11 @@ type WithdrawData struct {
 	OrderID  string
 }
 
-func (t *tdex) Withdraw(wq WithdrawRequest) (*Withdraw, error) {
-	return t.Service.Withdraw(wq)
+func (t *tdex) WalletWithdraw(wq WalletWithdrawRequest) (*WalletWithdraw, error) {
+	return t.Service.WalletWithdraw(wq)
 }
 
-type Switch struct {
+type WalletSwitch struct {
 	Status uint32
 	Data   SwitchData
 	Errmsg string
@@ -187,8 +190,8 @@ type SwitchData struct {
 	OrderId   string
 }
 
-func (t *tdex) Switch(wq SwitchRequest) (*Switch, error) {
-	return t.Service.Switch(wq)
+func (t *tdex) WalletSwitch(wq WalletSwitchRequest) (*WalletSwitch, error) {
+	return t.Service.WalletSwitch(wq)
 }
 
 type FuturesOpen struct {
@@ -244,7 +247,7 @@ func (t *tdex) FuturesCancel(wq []FuturesCancelRequest) (*FuturesCancel, error) 
 	return t.Service.FuturesCancel(wq)
 }
 
-type Setsl struct {
+type FuturesSetsl struct {
 	Status uint32
 	Data   SetslData
 	Errmsg string
@@ -252,11 +255,11 @@ type Setsl struct {
 type SetslData struct {
 }
 
-func (t *tdex) Setsl(wq SetslRequest) (*Setsl, error) {
-	return t.Service.Setsl(wq)
+func (t *tdex) FuturesSetsl(wq FuturesSetslRequest) (*FuturesSetsl, error) {
+	return t.Service.FuturesSetsl(wq)
 }
 
-type Settp struct {
+type FuturesSettp struct {
 	Status uint32
 	Data   SettpData
 	Errmsg string
@@ -264,11 +267,11 @@ type Settp struct {
 type SettpData struct {
 }
 
-func (t *tdex) Settp(wq SettpRequest) (*Settp, error) {
-	return t.Service.Settp(wq)
+func (t *tdex) FuturesSettp(wq FuturesSettpRequest) (*FuturesSettp, error) {
+	return t.Service.FuturesSettp(wq)
 }
 
-type Merge struct {
+type FuturesMerge struct {
 	Status uint32
 	Data   MergeData
 	Errmsg string
@@ -276,11 +279,11 @@ type Merge struct {
 type MergeData struct {
 }
 
-func (t *tdex) Merge(wq MergeRequest) (*Merge, error) {
-	return t.Service.Merge(wq)
+func (t *tdex) FuturesMerge(wq FuturesMergeRequest) (*FuturesMerge, error) {
+	return t.Service.FuturesMerge(wq)
 }
 
-type Split struct {
+type FuturesSplit struct {
 	Status uint32
 	Data   SplitData
 	Errmsg string
@@ -288,11 +291,11 @@ type Split struct {
 type SplitData struct {
 }
 
-func (t *tdex) Split(wq SplitRequest) (*Split, error) {
-	return t.Service.Split(wq)
+func (t *tdex) FuturesSplit(wq FuturesSplitRequest) (*FuturesSplit, error) {
+	return t.Service.FuturesSplit(wq)
 }
 
-type Setup struct {
+type FuturesSetup struct {
 	Status uint32
 	Data   SetupData
 	Errmsg string
@@ -300,11 +303,11 @@ type Setup struct {
 type SetupData struct {
 }
 
-func (t *tdex) Setup(wq SetupRequest) (*Setup, error) {
-	return t.Service.Setup(wq)
+func (t *tdex) FuturesSetup(wq FuturesSetupRequest) (*FuturesSetup, error) {
+	return t.Service.FuturesSetup(wq)
 }
 
-type SchemeGet struct {
+type FuturesSchemeGet struct {
 	Status uint32
 	Data   SchemeGetData
 	Errmsg string
@@ -314,11 +317,11 @@ type SchemeGetData struct {
 	Merged bool
 }
 
-func (t *tdex) SchemeGet(wq SchemeGetRequest) (*SchemeGet, error) {
-	return t.Service.SchemeGet(wq)
+func (t *tdex) FuturesSchemeGet(wq FuturesSchemeGetRequest) (*FuturesSchemeGet, error) {
+	return t.Service.FuturesSchemeGet(wq)
 }
 
-type SchemeSet struct {
+type FuturesSchemeSet struct {
 	Status uint32
 	Data   SchemeSetData
 	Errmsg string
@@ -326,11 +329,11 @@ type SchemeSet struct {
 type SchemeSetData struct {
 }
 
-func (t *tdex) SchemeSet(wq SchemeSetRequest) (*SchemeSet, error) {
-	return t.Service.SchemeSet(wq)
+func (t *tdex) FuturesSchemeSet(wq FuturesSchemeSetRequest) (*FuturesSchemeSet, error) {
+	return t.Service.FuturesSchemeSet(wq)
 }
 
-type GetOrders struct {
+type FuturesOrders struct {
 	Status uint32
 	Data   GetOrdersData
 	Errmsg string
@@ -372,11 +375,11 @@ type GetOrdersList struct {
 	UpdatedAt   string
 }
 
-func (t *tdex) GetOrders() (*GetOrders, error) {
-	return t.Service.GetOrders()
+func (t *tdex) FuturesOrders() (*FuturesOrders, error) {
+	return t.Service.FuturesOrders()
 }
 
-type GetPosition struct {
+type FuturesPosition struct {
 	Status uint32
 	Data   GetPositionData
 	Errmsg string
@@ -405,11 +408,11 @@ type GetPositionList struct {
 	UpdatedAt string
 }
 
-func (t *tdex) GetPosition() (*GetPosition, error) {
-	return t.Service.GetPosition()
+func (t *tdex) FuturesPosition() (*FuturesPosition, error) {
+	return t.Service.FuturesPosition()
 }
 
-type GetHistory struct {
+type FuturesHistory struct {
 	Status uint32
 	Data   GetHistoryData
 	Errmsg string
@@ -462,11 +465,11 @@ type GetHistoryList struct {
 	CreatedAt   string
 }
 
-func (t *tdex) GetHistory(wq GetHistoryRequest) (*GetHistory, error) {
-	return t.Service.GetHistory(wq)
+func (t *tdex) FuturesHistory(wq FuturesHistoryRequest) (*FuturesHistory, error) {
+	return t.Service.FuturesHistory(wq)
 }
 
-type GetContract struct {
+type FuturesContract struct {
 	Status uint32
 	Data   GetContractData
 	Errmsg string
@@ -482,8 +485,8 @@ type GetContractData struct {
 	IndicativeFundingRate string
 }
 
-func (t *tdex) GetContract(wq GetContractRequest) (*GetContract, error) {
-	return t.Service.GetContract(wq)
+func (t *tdex) FuturesContract(wq FuturesContractRequest) (*FuturesContract, error) {
+	return t.Service.FuturesContract(wq)
 }
 
 type SpotBuy struct {
@@ -582,34 +585,20 @@ func (t *tdex) SpotHistory(sq SpotHistoryRequest) (*SpotHistory, error) {
 	return t.Service.SpotHistory(sq)
 }
 
-type SpotStat struct {
-	Status uint64
-	Data   SpotStatData
-	Errmsg string
-}
-type SpotStatData struct {
-	Quantity float64
-	Worth    float64
-}
-
-func (t *tdex) SpotStat(sq SpotStatRequest) (*SpotStat, error) {
-	return t.Service.SpotStat(sq)
-}
-
-type BalancesRequest struct {
+type WalletBalancesRequest struct {
 	Type uint32
 }
-type BalanceRequest struct {
+type WalletBalanceRequest struct {
 	Currency uint32
 	Type     uint32
 }
-type SwitchRequest struct {
+type WalletSwitchRequest struct {
 	Currency  uint32
 	Direction uint32
 	Amount    float64
 }
 
-type WithdrawRequest struct {
+type WalletWithdrawRequest struct {
 	Currency uint32
 	Address  string
 	Amount   float64
@@ -662,7 +651,7 @@ type FuturesCancelRequest struct {
 	Cid int64
 	ID  uint64
 }
-type SetslRequest struct {
+type FuturesSetslRequest struct {
 	Cid         int64
 	ID          uint64
 	Distance    bool
@@ -676,7 +665,7 @@ type SetslRequest struct {
 	Visible     int32
 	Better      bool
 }
-type SettpRequest struct {
+type FuturesSettpRequest struct {
 	Cid         int64
 	ID          uint64
 	Distance    bool
@@ -690,36 +679,36 @@ type SettpRequest struct {
 	Visible     int32
 	Better      bool
 }
-type MergeRequest struct {
+type FuturesMergeRequest struct {
 	Cid  int64
 	List []uint64
 }
-type SplitRequest struct {
+type FuturesSplitRequest struct {
 	Cid    int64
 	ID     uint64
 	Volume uint64
 }
-type SetupRequest struct {
+type FuturesSetupRequest struct {
 	Cid    int64
 	ID     uint64
 	Target uint32
 }
-type SchemeSetRequest struct {
+type FuturesSchemeSetRequest struct {
 	Cid     uint32
-	Options SchemeSetRequestOptions
+	Options FuturesSchemeSetRequestOptions
 }
-type SchemeSetRequestOptions struct {
+type FuturesSchemeSetRequestOptions struct {
 	Shared bool
 	Merged bool
 }
-type SchemeGetRequest struct {
+type FuturesSchemeGetRequest struct {
 	Cid uint32
 }
-type GetHistoryRequest struct {
+type FuturesHistoryRequest struct {
 	PageSize int32
 	Page     int32
 }
-type GetContractRequest struct {
+type FuturesContractRequest struct {
 	Symbol string
 }
 type SpotBuyRequest struct {
@@ -741,9 +730,4 @@ type SpotHistoryRequest struct {
 	EndTime   string
 	PageSize  int32
 	Page      int32
-}
-type SpotStatRequest struct {
-	Symbol    string
-	BeginTime int64
-	EndTime   int64
 }

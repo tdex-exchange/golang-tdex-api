@@ -33,7 +33,7 @@ fmt.Printf("%+v", td)
 #### 查询有所余额
 
 ```go
-td, err := t.Balances(tdex.BalancesRequest{
+td, err := t.WalletBalances(tdex.WalletBalancesRequest{
     Type: 1,
 })
 if err != nil {
@@ -49,7 +49,7 @@ params:
 #### 查询单个余额
 
 ```go
-td, err := t.Balance(tdex.BalanceRequest{
+td, err := t.WalletBalance(tdex.WalletBalanceRequest{
     Type: 1,
     Currency: 1,
 })
@@ -67,7 +67,7 @@ params:
 #### 提现
 
 ```go
-td, err := t.Withdraw(tdex.WithdrawRequest{
+td, err := t.WalletWithdraw(tdex.WalletWithdrawRequest{
     Currency: 1,
     Address: "string",
     Amount: 1,
@@ -87,7 +87,7 @@ params:
 #### 资金划转
 
 ```go
-td, err := t.Switch(tdex.SwitchRequest{
+td, err := t.WalletSwitch(tdex.WalletSwitchRequest{
     Currency: 1,
     Direction: 1,
     Amount: 1,
@@ -237,7 +237,7 @@ params:
 #### 设置止损
 
 ```go
-td, err := t.Setsl(tdex.SetslRequest{Cid: int64, ID: uint64,...})
+td, err := t.FuturesSetsl(tdex.FuturesSetslRequest{Cid: int64, ID: uint64,...})
 if err != nil {
     panic(err)
 }
@@ -274,7 +274,7 @@ parmas:
 #### 设置止盈
 
 ```go
-td, err := t.Settp(tdex.SettpRequest{Cid: int64, ID: uint64,...})
+td, err := t.FuturesSettp(tdex.FuturesSettpRequest{Cid: int64, ID: uint64,...})
 if err != nil {
     panic(err)
 }
@@ -311,7 +311,7 @@ parmas:
 #### 合仓
 
 ```go
-td, err := t.Merge(tdex.MergeRequest{Cid: int64, List: []uint64{}})
+td, err := t.FuturesMerge(tdex.FuturesMergeRequest{Cid: int64, List: []uint64{}})
 if err != nil {
     panic(err)
 }
@@ -328,7 +328,7 @@ params:
 #### 分仓
 
 ```go
-td, err := t.Split(tdex.SplitRequest{Cid: int64, ID: uint64, Volume: uint64})
+td, err := t.FuturesSplit(tdex.FuturesSplitRequest{Cid: int64, ID: uint64, Volume: uint64})
 if err != nil {
     panic(err)
 }
@@ -347,7 +347,7 @@ params:
 #### 获取 用户选项
 
 ```go
-td, err := t.SchemeGet(tdex.SchemeGetRequest{Cid: int64})
+td, err := t.FuturesSchemeGet(tdex.SchemeGetRequest{Cid: int64})
 if err != nil {
     panic(err)
 }
@@ -361,7 +361,7 @@ params:
 #### 设置 用户选项
 
 ```go
-td, err := t.SchemeSet(tdex.SchemeSetRequest{Cid: int64})
+td, err := t.FuturesSchemeSet(tdex.SchemeSetRequest{Cid: int64})
 if err != nil {
     panic(err)
 }
@@ -376,7 +376,7 @@ params:
 #### 获取订单
 
 ```go
-td, err := t.GetOrders()
+td, err := t.FuturesGetOrders()
 if err != nil {
     panic(err)
 }
@@ -386,7 +386,7 @@ fmt.Printf("%+v", td)
 #### 获取持仓
 
 ```go
-td, err := t.GetPosition()
+td, err := t.FuturesPosition()
 if err != nil {
     panic(err)
 }
@@ -395,7 +395,7 @@ fmt.Printf("%+v", td)
 #### 获取历史信息
 
 ```go
-td, err := t.GetHistory(tdex.GetHistoryRequest{PageSize: int32, Page: int32})
+td, err := t.FuturesHistory(tdex.FuturesHistoryRequest{PageSize: int32, Page: int32})
 if err != nil {
     panic(err)
 }
@@ -411,7 +411,7 @@ params:
 #### 获取合约信息
 
 ```go
-td, err := t.GetContract(tdex.GetContractRequest{Symbol: string})
+td, err := t.FuturesContract(tdex.FuturesContractRequest{Symbol: string})
 if err != nil {
     panic(err)
 }

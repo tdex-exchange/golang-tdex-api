@@ -8,7 +8,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-func (as *apiService) Balances(bq BalancesRequest) (*Balances, error) {
+func (as *apiService) WalletBalances(bq WalletBalancesRequest) (*WalletBalances, error) {
 	params := make(map[string]interface{})
 	params["type"] = bq.Type
 	res, err := as.request("POST", "/wallet/balances", params, true, false)
@@ -17,7 +17,7 @@ func (as *apiService) Balances(bq BalancesRequest) (*Balances, error) {
 	}
 	textRes, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		return nil, errors.Wrap(err, "unable to read response from Balances.post")
+		return nil, errors.Wrap(err, "unable to read response from WalletBalances.post")
 	}
 	defer res.Body.Close()
 
@@ -26,18 +26,15 @@ func (as *apiService) Balances(bq BalancesRequest) (*Balances, error) {
 		return nil, as.handleError(textRes)
 	}
 
-	
-	rawBalances := Balances{}
+	rawWalletBalances := WalletBalances{}
 
-	if err := json.Unmarshal(textRes, &rawBalances); err != nil {
-		return nil, errors.Wrap(err, "rawBalances unmarshal failed")
+	if err := json.Unmarshal(textRes, &rawWalletBalances); err != nil {
+		return nil, errors.Wrap(err, "rawWalletBalances unmarshal failed")
 	}
 
-	
-
-	return &rawBalances, nil
+	return &rawWalletBalances, nil
 }
-func (as *apiService) Balance(bq BalanceRequest) (*Balance, error) {
+func (as *apiService) WalletBalance(bq WalletBalanceRequest) (*WalletBalance, error) {
 	params := make(map[string]interface{})
 	params["currency"] = bq.Currency
 	params["type"] = bq.Type
@@ -48,7 +45,7 @@ func (as *apiService) Balance(bq BalanceRequest) (*Balance, error) {
 	}
 	textRes, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		return nil, errors.Wrap(err, "unable to read response from Balance.post")
+		return nil, errors.Wrap(err, "unable to read response from WalletBalance.post")
 	}
 	defer res.Body.Close()
 
@@ -57,19 +54,16 @@ func (as *apiService) Balance(bq BalanceRequest) (*Balance, error) {
 		return nil, as.handleError(textRes)
 	}
 
-	
-	rawBalance := Balance{}
+	rawWalletBalance := WalletBalance{}
 
-	if err := json.Unmarshal(textRes, &rawBalance); err != nil {
-		return nil, errors.Wrap(err, "rawBalance unmarshal failed")
+	if err := json.Unmarshal(textRes, &rawWalletBalance); err != nil {
+		return nil, errors.Wrap(err, "rawWalletBalance unmarshal failed")
 	}
 
-	
-
-	return &rawBalance, nil
+	return &rawWalletBalance, nil
 }
 
-func (as *apiService) Withdraw(wq WithdrawRequest) (*Withdraw, error) {
+func (as *apiService) WalletWithdraw(wq WalletWithdrawRequest) (*WalletWithdraw, error) {
 	params := make(map[string]interface{})
 	params["currency"] = wq.Currency
 	params["address"] = wq.Address
@@ -81,7 +75,7 @@ func (as *apiService) Withdraw(wq WithdrawRequest) (*Withdraw, error) {
 	}
 	textRes, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		return nil, errors.Wrap(err, "unable to read response from withdraw.post")
+		return nil, errors.Wrap(err, "unable to read response from Walletwithdraw.post")
 	}
 	defer res.Body.Close()
 
@@ -90,18 +84,15 @@ func (as *apiService) Withdraw(wq WithdrawRequest) (*Withdraw, error) {
 		return nil, as.handleError(textRes)
 	}
 
-	
-	rawWithdraw := Withdraw{}
+	rawWalletWithdraw := WalletWithdraw{}
 
-	if err := json.Unmarshal(textRes, &rawWithdraw); err != nil {
-		return nil, errors.Wrap(err, "rawWithdraw unmarshal failed")
+	if err := json.Unmarshal(textRes, &rawWalletWithdraw); err != nil {
+		return nil, errors.Wrap(err, "rawWalletWithdraw unmarshal failed")
 	}
 
-	
-
-	return &rawWithdraw, nil
+	return &rawWalletWithdraw, nil
 }
-func (as *apiService) Switch(wq SwitchRequest) (*Switch, error) {
+func (as *apiService) WalletSwitch(wq WalletSwitchRequest) (*WalletSwitch, error) {
 	params := make(map[string]interface{})
 	params["currency"] = wq.Currency
 	params["direction"] = wq.Direction
@@ -113,7 +104,7 @@ func (as *apiService) Switch(wq SwitchRequest) (*Switch, error) {
 	}
 	textRes, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		return nil, errors.Wrap(err, "unable to read response from Switch.post")
+		return nil, errors.Wrap(err, "unable to read response from WalletSwitch.post")
 	}
 	defer res.Body.Close()
 
@@ -122,11 +113,11 @@ func (as *apiService) Switch(wq SwitchRequest) (*Switch, error) {
 		return nil, as.handleError(textRes)
 	}
 
-	rawSwitch := Switch{}
+	rawWalletSwitch := WalletSwitch{}
 
-	if err := json.Unmarshal(textRes, &rawSwitch); err != nil {
-		return nil, errors.Wrap(err, "rawSwitch unmarshal failed")
+	if err := json.Unmarshal(textRes, &rawWalletSwitch); err != nil {
+		return nil, errors.Wrap(err, "rawWalletSwitch unmarshal failed")
 	}
 
-	return &rawSwitch, nil
+	return &rawWalletSwitch, nil
 }

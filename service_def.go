@@ -15,32 +15,35 @@ import (
 
 type Service interface {
 	ProductCoins() (*ProductCoins, error)
+
 	UserInfo() (*UserInfo, error)
-	Balances(bqs BalancesRequest) (*Balances, error)
-	Balance(bq BalanceRequest) (*Balance, error)
-	Withdraw(wq WithdrawRequest) (*Withdraw, error)
-	Switch(sq SwitchRequest) (*Switch, error)
+
+	WalletBalances(bqs WalletBalancesRequest) (*WalletBalances, error)
+	WalletBalance(bq WalletBalanceRequest) (*WalletBalance, error)
+	WalletWithdraw(wq WalletWithdrawRequest) (*WalletWithdraw, error)
+	WalletSwitch(sq WalletSwitchRequest) (*WalletSwitch, error)
+
 	FuturesOpen(fr FuturesOpenRequest) (*FuturesOpen, error)
 	FuturesClose(fcr []FuturesCloseRequest) (*FuturesClose, error)
 	FuturesCloseAll(fcar []FuturesCloseAllRequest) (*FuturesCloseAll, error)
 	FuturesCancel(fcr []FuturesCancelRequest) (*FuturesCancel, error)
-	Setsl(sr SetslRequest) (*Setsl, error)
-	Settp(sr SettpRequest) (*Settp, error)
-	Merge(mr MergeRequest) (*Merge, error)
-	Split(sr SplitRequest) (*Split, error)
-	Setup(sr SetupRequest) (*Setup, error)
-	SchemeSet(ssr SchemeSetRequest) (*SchemeSet, error)
-	SchemeGet(sgr SchemeGetRequest) (*SchemeGet, error)
-	GetOrders() (*GetOrders, error)
-	GetPosition() (*GetPosition, error)
-	GetHistory(ghr GetHistoryRequest) (*GetHistory, error)
-	GetContract(gcr GetContractRequest) (*GetContract, error)
+	FuturesSetsl(sr FuturesSetslRequest) (*FuturesSetsl, error)
+	FuturesSettp(sr FuturesSettpRequest) (*FuturesSettp, error)
+	FuturesMerge(mr FuturesMergeRequest) (*FuturesMerge, error)
+	FuturesSplit(sr FuturesSplitRequest) (*FuturesSplit, error)
+	FuturesSetup(sr FuturesSetupRequest) (*FuturesSetup, error)
+	FuturesSchemeSet(ssr FuturesSchemeSetRequest) (*FuturesSchemeSet, error)
+	FuturesSchemeGet(sgr FuturesSchemeGetRequest) (*FuturesSchemeGet, error)
+	FuturesOrders() (*FuturesOrders, error)
+	FuturesPosition() (*FuturesPosition, error)
+	FuturesHistory(ghr FuturesHistoryRequest) (*FuturesHistory, error)
+	FuturesContract(gcr FuturesContractRequest) (*FuturesContract, error)
+
 	SpotBuy(sbr SpotBuyRequest) (*SpotBuy, error)
 	SpotSell(ssr SpotSellRequest) (*SpotSell, error)
 	SpotCancel(scr SpotCancelRequest) (*SpotCancel, error)
 	SpotOrders() (*SpotOrders, error)
 	SpotHistory(shr SpotHistoryRequest) (*SpotHistory, error)
-	SpotStat(ssr SpotStatRequest) (*SpotStat, error)
 }
 type apiService struct {
 	URL    string

@@ -130,7 +130,7 @@ func (as *apiService) FuturesCancel(wq []FuturesCancelRequest) (*FuturesCancel, 
 	return &rawFuturesCancel, nil
 }
 
-func (as *apiService) Setsl(wq SetslRequest) (*Setsl, error) {
+func (as *apiService) FuturesSetsl(wq FuturesSetslRequest) (*FuturesSetsl, error) {
 	params := make(map[string]interface{})
 	params["cid"] = wq.Cid
 	params["id"] = wq.ID
@@ -151,7 +151,7 @@ func (as *apiService) Setsl(wq SetslRequest) (*Setsl, error) {
 	}
 	textRes, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		return nil, errors.Wrap(err, "unable to read response from Setsl.post")
+		return nil, errors.Wrap(err, "unable to read response from FuturesSetsl.post")
 	}
 	defer res.Body.Close()
 
@@ -160,15 +160,15 @@ func (as *apiService) Setsl(wq SetslRequest) (*Setsl, error) {
 		return nil, as.handleError(textRes)
 	}
 
-	rawSetsl := Setsl{}
+	rawFuturesSetsl := FuturesSetsl{}
 
-	if err := json.Unmarshal(textRes, &rawSetsl); err != nil {
-		return nil, errors.Wrap(err, "rawSetsl unmarshal failed")
+	if err := json.Unmarshal(textRes, &rawFuturesSetsl); err != nil {
+		return nil, errors.Wrap(err, "rawFuturesSetsl unmarshal failed")
 	}
 
-	return &rawSetsl, nil
+	return &rawFuturesSetsl, nil
 }
-func (as *apiService) Settp(wq SettpRequest) (*Settp, error) {
+func (as *apiService) FuturesSettp(wq FuturesSettpRequest) (*FuturesSettp, error) {
 	params := make(map[string]interface{})
 	params["cid"] = wq.Cid
 	params["id"] = wq.ID
@@ -189,7 +189,7 @@ func (as *apiService) Settp(wq SettpRequest) (*Settp, error) {
 	}
 	textRes, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		return nil, errors.Wrap(err, "unable to read response from Settp.post")
+		return nil, errors.Wrap(err, "unable to read response from FuturesSettp.post")
 	}
 	defer res.Body.Close()
 
@@ -198,16 +198,16 @@ func (as *apiService) Settp(wq SettpRequest) (*Settp, error) {
 		return nil, as.handleError(textRes)
 	}
 
-	rawSettp := Settp{}
+	rawFuturesSettp := FuturesSettp{}
 
-	if err := json.Unmarshal(textRes, &rawSettp); err != nil {
-		return nil, errors.Wrap(err, "rawSettp unmarshal failed")
+	if err := json.Unmarshal(textRes, &rawFuturesSettp); err != nil {
+		return nil, errors.Wrap(err, "rawFuturesSettp unmarshal failed")
 	}
 
-	return &rawSettp, nil
+	return &rawFuturesSettp, nil
 }
 
-func (as *apiService) Merge(wq MergeRequest) (*Merge, error) {
+func (as *apiService) FuturesMerge(wq FuturesMergeRequest) (*FuturesMerge, error) {
 	params := make(map[string]interface{})
 	params["cid"] = wq.Cid
 	params["list"] = wq.List
@@ -218,7 +218,7 @@ func (as *apiService) Merge(wq MergeRequest) (*Merge, error) {
 	}
 	textRes, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		return nil, errors.Wrap(err, "unable to read response from Merge.post")
+		return nil, errors.Wrap(err, "unable to read response from FuturesMerge.post")
 	}
 	defer res.Body.Close()
 
@@ -227,27 +227,27 @@ func (as *apiService) Merge(wq MergeRequest) (*Merge, error) {
 		return nil, as.handleError(textRes)
 	}
 
-	rawMerge := Merge{}
+	rawFuturesMerge := FuturesMerge{}
 
-	if err := json.Unmarshal(textRes, &rawMerge); err != nil {
-		return nil, errors.Wrap(err, "rawMerge unmarshal failed")
+	if err := json.Unmarshal(textRes, &rawFuturesMerge); err != nil {
+		return nil, errors.Wrap(err, "rawFuturesMerge unmarshal failed")
 	}
 
-	return &rawMerge, nil
+	return &rawFuturesMerge, nil
 }
-func (as *apiService) Split(wq SplitRequest) (*Split, error) {
+func (as *apiService) FuturesSplit(wq FuturesSplitRequest) (*FuturesSplit, error) {
 	params := make(map[string]interface{})
 	params["cid"] = wq.Cid
 	params["id"] = wq.ID
 	params["volume"] = wq.Volume
 
 	res, err := as.request("POST", "/futures/split", params, true, false)
-	if err != nil {
+	if err != nil { 
 		return nil, err
 	}
 	textRes, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		return nil, errors.Wrap(err, "unable to read response from Split.post")
+		return nil, errors.Wrap(err, "unable to read response from FuturesSplit.post")
 	}
 	defer res.Body.Close()
 
@@ -256,15 +256,15 @@ func (as *apiService) Split(wq SplitRequest) (*Split, error) {
 		return nil, as.handleError(textRes)
 	}
 
-	rawSplit := Split{}
+	rawFuturesSplit := FuturesSplit{}
 
-	if err := json.Unmarshal(textRes, &rawSplit); err != nil {
-		return nil, errors.Wrap(err, "rawSplit unmarshal failed")
+	if err := json.Unmarshal(textRes, &rawFuturesSplit); err != nil {
+		return nil, errors.Wrap(err, "rawFuturesSplit unmarshal failed")
 	}
 
-	return &rawSplit, nil
+	return &rawFuturesSplit, nil
 }
-func (as *apiService) Setup(wq SetupRequest) (*Setup, error) {
+func (as *apiService) FuturesSetup(wq FuturesSetupRequest) (*FuturesSetup, error) {
 	params := make(map[string]interface{})
 	params["cid"] = wq.Cid
 	params["id"] = wq.ID
@@ -276,7 +276,7 @@ func (as *apiService) Setup(wq SetupRequest) (*Setup, error) {
 	}
 	textRes, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		return nil, errors.Wrap(err, "unable to read response from Setup.post")
+		return nil, errors.Wrap(err, "unable to read response from FuturesSetup.post")
 	}
 	defer res.Body.Close()
 
@@ -285,15 +285,15 @@ func (as *apiService) Setup(wq SetupRequest) (*Setup, error) {
 		return nil, as.handleError(textRes)
 	}
 
-	rawSetup := Setup{}
+	rawFuturesSetup := FuturesSetup{}
 
-	if err := json.Unmarshal(textRes, &rawSetup); err != nil {
-		return nil, errors.Wrap(err, "rawSetup unmarshal failed")
+	if err := json.Unmarshal(textRes, &rawFuturesSetup); err != nil {
+		return nil, errors.Wrap(err, "rawFuturesSetup unmarshal failed")
 	}
 
-	return &rawSetup, nil
+	return &rawFuturesSetup, nil
 }
-func (as *apiService) SchemeSet(wq SchemeSetRequest) (*SchemeSet, error) {
+func (as *apiService) FuturesSchemeSet(wq FuturesSchemeSetRequest) (*FuturesSchemeSet, error) {
 	params := make(map[string]interface{})
 	params["cid"] = wq.Cid
 	params["options"] = wq.Options
@@ -304,7 +304,7 @@ func (as *apiService) SchemeSet(wq SchemeSetRequest) (*SchemeSet, error) {
 	}
 	textRes, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		return nil, errors.Wrap(err, "unable to read response from SchemeSet.post")
+		return nil, errors.Wrap(err, "unable to read response from FuturesSchemeSet.post")
 	}
 	defer res.Body.Close()
 
@@ -313,15 +313,15 @@ func (as *apiService) SchemeSet(wq SchemeSetRequest) (*SchemeSet, error) {
 		return nil, as.handleError(textRes)
 	}
 
-	rawSchemeSet := SchemeSet{}
+	rawFuturesSchemeSet := FuturesSchemeSet{}
 
-	if err := json.Unmarshal(textRes, &rawSchemeSet); err != nil {
-		return nil, errors.Wrap(err, "rawSchemeSet unmarshal failed")
+	if err := json.Unmarshal(textRes, &rawFuturesSchemeSet); err != nil {
+		return nil, errors.Wrap(err, "rawFuturesSchemeSet unmarshal failed")
 	}
 
-	return &rawSchemeSet, nil
+	return &rawFuturesSchemeSet, nil
 }
-func (as *apiService) SchemeGet(wq SchemeGetRequest) (*SchemeGet, error) {
+func (as *apiService) FuturesSchemeGet(wq FuturesSchemeGetRequest) (*FuturesSchemeGet, error) {
 	params := make(map[string]interface{})
 	params["cid"] = wq.Cid
 
@@ -331,7 +331,7 @@ func (as *apiService) SchemeGet(wq SchemeGetRequest) (*SchemeGet, error) {
 	}
 	textRes, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		return nil, errors.Wrap(err, "unable to read response from SchemeGet.post")
+		return nil, errors.Wrap(err, "unable to read response from FuturesSchemeGet.post")
 	}
 	defer res.Body.Close()
 
@@ -340,15 +340,15 @@ func (as *apiService) SchemeGet(wq SchemeGetRequest) (*SchemeGet, error) {
 		return nil, as.handleError(textRes)
 	}
 
-	rawSchemeGet := SchemeGet{}
+	rawFuturesSchemeGet := FuturesSchemeGet{}
 
-	if err := json.Unmarshal(textRes, &rawSchemeGet); err != nil {
-		return nil, errors.Wrap(err, "rawSchemeGet unmarshal failed")
+	if err := json.Unmarshal(textRes, &rawFuturesSchemeGet); err != nil {
+		return nil, errors.Wrap(err, "rawFuturesSchemeGet unmarshal failed")
 	}
 
-	return &rawSchemeGet, nil
+	return &rawFuturesSchemeGet, nil
 }
-func (as *apiService) GetOrders() (*GetOrders, error) {
+func (as *apiService) FuturesOrders() (*FuturesOrders, error) {
 	params := make(map[string]interface{})
 
 	res, err := as.request("POST", "/futures/orders", params, true, false)
@@ -357,7 +357,7 @@ func (as *apiService) GetOrders() (*GetOrders, error) {
 	}
 	textRes, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		return nil, errors.Wrap(err, "unable to read response from GetOrders.post")
+		return nil, errors.Wrap(err, "unable to read response from FuturesOrders.post")
 	}
 	defer res.Body.Close()
 
@@ -366,15 +366,15 @@ func (as *apiService) GetOrders() (*GetOrders, error) {
 		return nil, as.handleError(textRes)
 	}
 
-	rawGetOrders := GetOrders{}
+	rawFuturesOrders := FuturesOrders{}
 
-	if err := json.Unmarshal(textRes, &rawGetOrders); err != nil {
-		return nil, errors.Wrap(err, "rawGetOrders unmarshal failed")
+	if err := json.Unmarshal(textRes, &rawFuturesOrders); err != nil {
+		return nil, errors.Wrap(err, "rawFuturesOrders unmarshal failed")
 	}
 
-	return &rawGetOrders, nil
+	return &rawFuturesOrders, nil
 }
-func (as *apiService) GetPosition() (*GetPosition, error) {
+func (as *apiService) FuturesPosition() (*FuturesPosition, error) {
 	params := make(map[string]interface{})
 
 	res, err := as.request("POST", "/futures/position", params, true, false)
@@ -383,7 +383,7 @@ func (as *apiService) GetPosition() (*GetPosition, error) {
 	}
 	textRes, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		return nil, errors.Wrap(err, "unable to read response from GetPosition.post")
+		return nil, errors.Wrap(err, "unable to read response from FuturesPosition.post")
 	}
 	defer res.Body.Close()
 
@@ -392,15 +392,15 @@ func (as *apiService) GetPosition() (*GetPosition, error) {
 		return nil, as.handleError(textRes)
 	}
 
-	rawGetPosition := GetPosition{}
+	rawFuturesPosition := FuturesPosition{}
 
-	if err := json.Unmarshal(textRes, &rawGetPosition); err != nil {
-		return nil, errors.Wrap(err, "rawGetPosition unmarshal failed")
+	if err := json.Unmarshal(textRes, &rawFuturesPosition); err != nil {
+		return nil, errors.Wrap(err, "rawFuturesPosition unmarshal failed")
 	}
 
-	return &rawGetPosition, nil
+	return &rawFuturesPosition, nil
 }
-func (as *apiService) GetHistory(wq GetHistoryRequest) (*GetHistory, error) {
+func (as *apiService) FuturesHistory(wq FuturesHistoryRequest) (*FuturesHistory, error) {
 	params := make(map[string]interface{})
 	params["page"] = wq.Page
 	params["pageSize"] = wq.PageSize
@@ -411,7 +411,7 @@ func (as *apiService) GetHistory(wq GetHistoryRequest) (*GetHistory, error) {
 	}
 	textRes, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		return nil, errors.Wrap(err, "unable to read response from GetHistory.post")
+		return nil, errors.Wrap(err, "unable to read response from FuturesHistory.post")
 	}
 	defer res.Body.Close()
 
@@ -420,15 +420,15 @@ func (as *apiService) GetHistory(wq GetHistoryRequest) (*GetHistory, error) {
 		return nil, as.handleError(textRes)
 	}
 
-	rawGetHistory := GetHistory{}
+	rawFuturesHistory := FuturesHistory{}
 
-	if err := json.Unmarshal(textRes, &rawGetHistory); err != nil {
-		return nil, errors.Wrap(err, "rawGetHistory unmarshal failed")
+	if err := json.Unmarshal(textRes, &rawFuturesHistory); err != nil {
+		return nil, errors.Wrap(err, "rawFuturesHistory unmarshal failed")
 	}
 
-	return &rawGetHistory, nil
+	return &rawFuturesHistory, nil
 }
-func (as *apiService) GetContract(wq GetContractRequest) (*GetContract, error) {
+func (as *apiService) FuturesContract(wq FuturesContractRequest) (*FuturesContract, error) {
 	params := make(map[string]interface{})
 	params["symbol"] = wq.Symbol
 
@@ -438,7 +438,7 @@ func (as *apiService) GetContract(wq GetContractRequest) (*GetContract, error) {
 	}
 	textRes, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		return nil, errors.Wrap(err, "unable to read response from GetContract.post")
+		return nil, errors.Wrap(err, "unable to read response from FuturesContract.post")
 	}
 	defer res.Body.Close()
 
@@ -447,11 +447,11 @@ func (as *apiService) GetContract(wq GetContractRequest) (*GetContract, error) {
 		return nil, as.handleError(textRes)
 	}
 
-	rawGetContract := GetContract{}
+	rawFuturesContract := FuturesContract{}
 
-	if err := json.Unmarshal(textRes, &rawGetContract); err != nil {
-		return nil, errors.Wrap(err, "rawGetContract unmarshal failed")
+	if err := json.Unmarshal(textRes, &rawFuturesContract); err != nil {
+		return nil, errors.Wrap(err, "rawFuturesContract unmarshal failed")
 	}
 
-	return &rawGetContract, nil
+	return &rawFuturesContract, nil
 }
