@@ -686,7 +686,7 @@ type FuturesCloseAllRequest uint64
 
 type FuturesCancelRequest struct {
 	Cid int64
-	Id  uint64
+	ID  uint64
 }
 
 type FuturesReplaceRequest struct {
