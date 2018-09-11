@@ -219,7 +219,7 @@ params:
 #### 批量取消
 
 ```go
-td, err := t.FururesCancel([]tdex.FururesCancelRequest{
+td, err := t.FuturesCancel([]tdex.FuturesCancelRequest{
     {Cid:1,ID:1},{Cid:1,ID:1},
 })
 if err != nil {
