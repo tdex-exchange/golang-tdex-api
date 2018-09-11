@@ -1,8 +1,0 @@
-dist
-node_modules
-.project
-.idea
-scss
-*.map
-.DS_Store
-.vscode
