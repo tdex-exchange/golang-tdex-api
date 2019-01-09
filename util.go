@@ -10,6 +10,7 @@ import (
 	"github.com/pkg/errors"
 )
 
+//util
 func floatFromString(raw interface{}) (float64, error) {
 	str, ok := raw.(string)
 	if !ok {

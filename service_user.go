@@ -9,6 +9,7 @@ import (
 )
 
 func (as *apiService) UserInfo() (*UserInfo, error) {
+
 	params := make(map[string]interface{})
 
 	res, err := as.request("POST", "/user/info", params, true, false)
